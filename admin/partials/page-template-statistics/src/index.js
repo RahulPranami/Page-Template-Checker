@@ -1,17 +1,14 @@
 import { render } from "@wordpress/element";
+import App from "./App";
 
 import "./style.scss";
-
-function MyFirstApp() {
-    return <span>Hello from JavaScript!</span>;
-}
 
 window.addEventListener(
     "load",
     function () {
         if (document.querySelector("#page-template-statistics")) {
             render(
-                <MyFirstApp />,
+                <App />,
                 document.querySelector("#page-template-statistics")
             );
         }

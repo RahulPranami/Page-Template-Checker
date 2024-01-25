@@ -140,22 +140,22 @@ class Page_Template_Checker_Admin {
 	}
 
 	public function page_template_checker_page() {
-		// add_submenu_page( 'tools.php', 'Page Templates Statistics', 'Page Templates Statistics', 'manage_options', 'page-template-statistics', [$this,'wpse_260813_show_satistics'] );
-		add_submenu_page(
-			'tools.php',
-			'Page Templates Statistics',
-			'Page Templates Statistics',
-			'manage_options',
-			'page-template-statistics',
-			function () {
-				echo '<div class="wrap" id="page-template-statistics"></div>';
-			}
-		);
+		add_submenu_page( 'tools.php', 'Page Templates Statistics', 'Page Templates Statistics', 'manage_options', 'page-template-statistics', [$this,'template_page_statistics'] );
+		// add_submenu_page(
+		// 	'tools.php',
+		// 	'Page Templates Statistics',
+		// 	'Page Templates Statistics',
+		// 	'manage_options',
+		// 	'page-template-statistics',
+		// 	function () {
+		// 		echo '<div class="wrap" id="page-template-statistics"></div>';
+		// 	}
+		// );
 
 	}
 
 	// Function that renders the page added above
-	function wpse_260813_show_satistics() {
+	function template_page_statistics() {
 
 		// Method 1 :
 		$templates = wp_get_theme()->get_page_templates();
@@ -182,6 +182,34 @@ class Page_Template_Checker_Admin {
 			$page_count = sizeof($q->posts);
 
 			if ($page_count > 0) {
+				// echo '<p style="color:green">' . $file . ': <strong>' . sizeof($q->posts) . '</strong> pages are using this template:</p>';
+				// echo "<ul>";
+				// foreach ($q->posts as $p) {
+				// 	echo '<li><a href="' . get_permalink($p, false) . '">' . $p->post_title . '</a></li>';
+				// }
+				// echo "</ul>";
+			} else {
+				echo '<p style="color:red">' . $file . ': <strong>0</strong> pages are using this template, you should be able to safely delete it from your theme.</p>';
+			}
+
+			foreach ($q->posts as $p) {
+				$report[$file][$p->ID] = $p->post_title;
+			}
+		}
+
+		foreach ($templates as $file => $name) {
+			$q = new WP_Query(array(
+				'post_type' => 'page',
+				'posts_per_page' => -1,
+				'meta_query' => array(array(
+					'key' => '_wp_page_template',
+					'value' => $file
+				))
+			));
+
+			$page_count = sizeof($q->posts);
+
+			if ($page_count > 0) {
 				echo '<p style="color:green">' . $file . ': <strong>' . sizeof($q->posts) . '</strong> pages are using this template:</p>';
 				echo "<ul>";
 				foreach ($q->posts as $p) {
@@ -189,7 +217,7 @@ class Page_Template_Checker_Admin {
 				}
 				echo "</ul>";
 			} else {
-				echo '<p style="color:red">' . $file . ': <strong>0</strong> pages are using this template, you should be able to safely delete it from your theme.</p>';
+				// echo '<p style="color:red">' . $file . ': <strong>0</strong> pages are using this template, you should be able to safely delete it from your theme.</p>';
 			}
 
 			foreach ($q->posts as $p) {
