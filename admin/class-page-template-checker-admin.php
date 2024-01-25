@@ -239,6 +239,10 @@ class Page_Template_Checker_Admin {
 		$query = "SELECT DISTINCT( meta.meta_value ) FROM {$wpdb->prefix}postmeta as meta JOIN {$wpdb->prefix}posts as posts ON posts.ID = meta.post_id WHERE meta.meta_key LIKE '_wp_page_template' AND posts.post_type = 'page';";
 		$query_with_count = "SELECT meta.meta_value, COUNT(*) as count FROM {$wpdb->prefix}postmeta as meta JOIN {$wpdb->prefix}posts as posts ON posts.ID = meta.post_id WHERE meta.meta_key LIKE '_wp_page_template' AND posts.post_type = 'page' GROUP BY meta.meta_value;";
 
+		$query_to_retrieve_contact_form_acf_fields = "SELECT p.ID, p.post_title, pm.meta_key, pm.meta_value FROM {$wpdb->prefix}posts p JOIN {$wpdb->prefix}postmeta pm ON p.ID = pm.post_id WHERE pm.meta_key LIKE '_%' AND pm.meta_value LIKE '%[contact-form-7%' AND p.post_status <> 'inherit';";
+
+		$query_to_retrieve_contact_form_pages = "SELECT ID, post_title, post_content FROM {$wpdb->prefix}posts WHERE post_content LIKE '%[contact-form-7%' AND post_status <> 'inherit';";
+
 		$result = $wpdb->get_results($query);
 
 		$used_templates = array();
