@@ -165,6 +165,7 @@ class Page_Template_Checker_Admin {
 		// print_r($templates);
 		// echo '</pre>';
 
+		echo '<div class="wrap">';
 
 		echo '<h1>Page Template Usage Report</h1>';
 		echo "<p>This report will show you any pages in your WordPress site that are using one of your theme's custom templates.</p>";
@@ -225,6 +226,7 @@ class Page_Template_Checker_Admin {
 			}
 		}
 
+		echo '</div>';
 
 		// Method 2 :
 
