@@ -1,0 +1,1 @@
+{"version":3,"file":"./style-index.css","mappings":";;;AAAA;EACI;AACJ,C","sources":["webpack://page-template-statistics/./src/style.scss"],"sourcesContent":[".tools_page_page-template-statistics #wpcontent {\n    background: #fff;\n}\n"],"names":[],"sourceRoot":""}
