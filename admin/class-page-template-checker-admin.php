@@ -157,6 +157,9 @@ class Page_Template_Checker_Admin {
 	// Function that renders the page added above
 	function template_page_statistics() {
 
+
+		
+
 		// Method 1 :
 		$templates = wp_get_theme()->get_page_templates();
 		$report = array();
@@ -167,7 +170,31 @@ class Page_Template_Checker_Admin {
 
 		echo '<div class="wrap">';
 
-		echo '<h1>Page Template Usage Report</h1>';
+        echo '<div id="icon-themes" class="icon32"></div>';
+
+		if (isset($_GET) && isset($_GET['tab'])) {
+			$active_tab = $_GET['tab'];
+		} else {
+			$active_tab = 'page-template-usage-listing';
+		}
+		
+
+		echo '<h2 class="nav-tab-wrapper">';
+
+		echo '<a href="?page=' . $_GET['page'] . '&tab=page-template-usage-listing" class="nav-tab ';
+		echo $active_tab == 'page-template-usage-listing' ? 'nav-tab-active' : '';
+		echo '"> Page Template Usage Listing </a>';
+		// echo '<a href="?page=' . $_GET['page'] . '&tab=email_settings" class="nav-tab "> Email Settings </a>' ;
+        echo '</h2>';
+
+		
+		if (isset($_GET) && isset($_GET['tab'])) {
+			echo '<div class="breadcrumb">';
+			echo '<a href="admin.php">Dashboard</a> &raquo; <a href="?page=' . $_GET['page'] . '&tab=page-template-usage-listing">Page Template Usage Listing</a> &raquo; Plugin Settings';
+			echo '</div>';
+		}
+
+		// echo '<h1>Page Template Usage Report</h1>';
 		echo "<p>This report will show you any pages in your WordPress site that are using one of your theme's custom templates.</p>";
 
 		foreach ($templates as $file => $name) {
