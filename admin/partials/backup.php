@@ -140,4 +140,3 @@
 				<?php endforeach; ?>
 			</table>
 		</div>
-	<?php

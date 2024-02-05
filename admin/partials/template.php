@@ -2,7 +2,9 @@
 
     <?php
     // $current_tab = isset($_GET['tab']) ? $_GET['tab'] : 'dashboard';
-    $tabs = ['Page Templates' => 'page-templates', 'Contact Forms' => 'contact-forms', 'Dashboard' => 'dashboard', 'Settings' => 'settings'];
+    // $tabs = ['Shortcode Usage' => 'shortcode-search'];
+    $tabs = ['Page Templates' => 'page-templates', 'Contact Forms' => 'contact-forms', 'Shortcode Search' => 'shortcode-search'];
+    // $tabs = ['Page Templates' => 'page-templates', 'Contact Forms' => 'contact-forms', 'Dashboard' => 'dashboard', 'Settings' => 'settings'];
 
     ?>
 

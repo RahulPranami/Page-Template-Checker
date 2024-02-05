@@ -20,7 +20,8 @@
  * @subpackage Page_Template_Checker/admin
  * @author     Rahul Pranami <rahulpranami101@gmail.com>
  */
-class Page_Template_Checker_Admin {
+class Page_Template_Checker_Admin
+{
 
 	/**
 	 * The ID of this plugin.
@@ -47,11 +48,11 @@ class Page_Template_Checker_Admin {
 	 * @param      string    $plugin_name       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct($plugin_name, $version)
+	{
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
 	}
 
 	/**
@@ -59,7 +60,8 @@ class Page_Template_Checker_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles( $hook ) {
+	public function enqueue_styles($hook)
+	{
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -73,7 +75,7 @@ class Page_Template_Checker_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/page-template-checker-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/page-template-checker-admin.css', array(), $this->version, 'all');
 
 		// Load only on ?page=page-template-statistics.
 		if ('tools_page_page-template-statistics' == $hook) {
@@ -84,7 +86,7 @@ class Page_Template_Checker_Admin {
 
 			// Enqueue CSS dependencies.
 			foreach ($asset_file['dependencies'] as $style) {
-				wp_enqueue_style( $style );
+				wp_enqueue_style($style);
 			}
 
 			// Load our style.css.
@@ -94,9 +96,7 @@ class Page_Template_Checker_Admin {
 				array(),
 				$asset_file['version']
 			);
-
 		}
-
 	}
 
 	/**
@@ -104,7 +104,8 @@ class Page_Template_Checker_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts( $hook ) {
+	public function enqueue_scripts($hook)
+	{
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -118,20 +119,20 @@ class Page_Template_Checker_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/page-template-checker-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/page-template-checker-admin.js', array('jquery'), $this->version, false);
 
 		// Load only on ?page=page-template-statistics.
 		if ('tools_page_page-template-statistics' == $hook) {
 			// wp_enqueue_script( 'tailwindcss', 'https://cdn.tailwindcss.com' );
-			wp_enqueue_script( 'tailwindcss', plugin_dir_url( __FILE__ ) . 'js/tailwindcss.min.js', array(), '3.4.1', false );
+			wp_enqueue_script('tailwindcss', plugin_dir_url(__FILE__) . 'js/tailwindcss.min.js', array(), '3.4.1', false);
 			// wp_enqueue_script( 'htmx', 'https://unpkg.com/htmx.org@1.9.10' );
-			wp_enqueue_script( 'htmx', plugin_dir_url( __FILE__ ) . 'js/htmx.min.js', array(), '1.9.10', false );
+			wp_enqueue_script('htmx', plugin_dir_url(__FILE__) . 'js/htmx.min.js', array(), '1.9.10', false);
 		}
-
 	}
 
-	public function page_template_checker_page() {
-		add_submenu_page( 'tools.php', 'Page Templates Statistics', 'Page Templates Statistics', 'manage_options', 'page-template-statistics', [$this,'template_page_statistics'] );
+	public function page_template_checker_page()
+	{
+		add_submenu_page('tools.php', 'Page Templates Statistics', 'Page Templates Statistics', 'manage_options', 'page-template-statistics', [$this, 'template_page_statistics']);
 		// add_submenu_page(
 		// 	'tools.php',
 		// 	'Page Templates Statistics',
@@ -146,17 +147,80 @@ class Page_Template_Checker_Admin {
 	}
 
 	// Function that renders the page added above
-	function template_page_statistics() {
-			require_once plugin_dir_path( __FILE__ ) . 'partials/template.php';
+	function template_page_statistics()
+	{
+		require_once plugin_dir_path(__FILE__) . 'partials/template.php';
 	}
 
-	public function handle_my_custom_action() {
-    	// Handle the request here...
+	public function handle_search_shortcode()
+	{
+		global $wpdb;
 
-    	// Then return a response. For example:
-    	$response = array('status' => 'ok', 'data' => 'Some data');
-    	wp_send_json($response);
+		$contact_form_7_pattern = '%[' . esc_sql($_POST['searchQuery']) . '%'; // Define the pattern for contact-form-7
+
+		$query_to_retrieve_shortcode_acf_fields = $wpdb->prepare("SELECT p.ID, p.post_title, pm.meta_key, pm.meta_value FROM {$wpdb->prefix}posts p JOIN {$wpdb->prefix}postmeta pm ON p.ID = pm.post_id WHERE pm.meta_key LIKE %s AND pm.meta_value LIKE %s AND p.post_status <> 'inherit';", array('_%', $contact_form_7_pattern));
+		$query_to_retrieve_shortcode_pages = $wpdb->prepare("SELECT ID, post_title, post_content FROM {$wpdb->prefix}posts WHERE post_content LIKE %s AND post_status <> 'inherit';", $contact_form_7_pattern);
+
+		$result_from_pages_in_acf = $wpdb->get_results($query_to_retrieve_shortcode_acf_fields);
+		$result_from_pages = $wpdb->get_results($query_to_retrieve_shortcode_pages);
+
+		ob_start();
+		if ($result_from_pages) : ?>
+
+			<div class="rounded-md border border-slate-400 p-2 my-2 pb-4">
+				<div class="flex justify-between container mx-auto p-2 mb-2 items-center">
+					<h4 class="text-xl text-slate-300">
+						Pages that Have Shortcode In the Content
+					</h4>
+				</div>
+
+				<ul class="list-none pl-5">
+					<?php foreach ($result_from_pages as $page) : ?>
+						<li>
+							<a href="<?php echo get_permalink($page->ID, false); ?>" class="text-base text-blue-300 hover:text-blue-500">
+								<?php echo $page->post_title; ?>
+							</a>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+
+		<?php
+		endif;
+		if ($result_from_pages_in_acf) :
+		?>
+			<div class="rounded-md border border-slate-400 p-2 my-2 pb-4">
+				<div class="flex justify-between container mx-auto p-2 mb-2 items-center">
+					<h4 class="text-xl text-slate-300">
+						Pages that Have Shortcode In the ACF Field
+					</h4>
+				</div>
+
+				<ul class="list-none pl-5">
+					<?php foreach ($result_from_pages_in_acf as $page) : ?>
+						<li>
+							<a href="<?php echo get_permalink($page->ID, false); ?>" class="text-base text-blue-300 hover:text-blue-500">
+								<?php echo $page->post_title; ?>
+							</a>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+		<?php
+		endif;
+		if (!$result_from_pages_in_acf && !$result_from_pages) :
+		?>
+			<div class="rounded-md border border-slate-400 p-2 my-2">
+				<div class="flex justify-center align-items-center container mx-auto p-2">
+					<h4 class="text-xl text-center text-red-300">
+						There are no Pages that have this shortcode in the content or acf fields.
+					</h4>
+				</div>
+			</div>
+		<?php
+		endif;
+
+		echo ob_get_clean();
+		exit();
 	}
-
-
 }
