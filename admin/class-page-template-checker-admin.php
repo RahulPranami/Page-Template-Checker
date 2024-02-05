@@ -133,23 +133,35 @@ class Page_Template_Checker_Admin
 	public function page_template_checker_page()
 	{
 		add_submenu_page('tools.php', 'Page Templates Statistics', 'Page Templates Statistics', 'manage_options', 'page-template-statistics', [$this, 'template_page_statistics']);
-		// add_submenu_page(
-		// 	'tools.php',
-		// 	'Page Templates Statistics',
-		// 	'Page Templates Statistics',
-		// 	'manage_options',
-		// 	'page-template-statistics',
-		// 	function () {
-		// 		echo '<div class="wrap" id="page-template-statistics"></div>';
-		// 	}
-		// );
-
 	}
 
 	// Function that renders the page added above
-	function template_page_statistics()
+	public function template_page_statistics()
 	{
 		require_once plugin_dir_path(__FILE__) . 'partials/template.php';
+	}
+
+	public function display_current_page_template($wp_admin_bar)
+	{
+		// Check if user is logged in and has the capability to edit posts
+		if (is_user_logged_in() && current_user_can('edit_posts')) {
+
+			// Get current page template
+			$current_page_template = get_page_template_slug();
+
+			if ('' !== $current_page_template) {
+
+				// Remove .php extension
+				$current_page_template = str_replace(['.php', '.blade'], '', basename($current_page_template));
+
+				// Add item to admin bar
+				$wp_admin_bar->add_node(array(
+					'id'     => 'current-page-template',
+					'title' => 'Page Template: ' . $current_page_template,
+					'parent' => 'top-secondary',
+				));
+			}
+		}
 	}
 
 	public function handle_search_shortcode()
@@ -217,7 +229,7 @@ class Page_Template_Checker_Admin
 					</h4>
 				</div>
 			</div>
-		<?php
+<?php
 		endif;
 
 		echo ob_get_clean();
