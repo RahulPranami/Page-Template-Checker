@@ -12,13 +12,24 @@ $query_to_retrieve_contact_form_pages = "SELECT ID, post_title, post_content FRO
 $result_from_pages = $wpdb->get_results($query_to_retrieve_contact_form_pages);
 $result_from_pages_in_acf = $wpdb->get_results($query_to_retrieve_contact_form_acf_fields);
 
+$result_from_pages_length = count($result_from_pages);
+$result_from_pages_in_acf_length = count($result_from_pages_in_acf);
+
 ?>
 
 <div class="rounded-md border border-slate-400 p-2 my-2 pb-4">
     <div class="flex justify-between container mx-auto p-2 mb-2 items-center">
-        <h4 class="text-xl text-slate-300">
+        <h4 class="float-left text-xl text-slate-300">
             Pages that Have Contact Form In the Content
         </h4>
+        <p class="float-right text-green-500">
+            <strong class="px-2">
+                ( <span class="px-2">
+                    <?php echo $result_from_pages_length; ?>
+                </span> )
+            </strong>
+            pages are using this Contact Form
+        </p>
     </div>
 
     <ul class="list-none pl-5">
@@ -36,9 +47,17 @@ $result_from_pages_in_acf = $wpdb->get_results($query_to_retrieve_contact_form_a
 
 <div class="rounded-md border border-slate-400 p-2 my-2 pb-4">
     <div class="flex justify-between container mx-auto p-2 mb-2 items-center">
-        <h4 class="text-xl text-slate-300">
+        <h4 class="float-left text-xl text-slate-300">
             Pages that Have Contact Form In the ACF Field
         </h4>
+        <p class="float-right text-green-500">
+            <strong class="px-2">
+                ( <span class="px-2">
+                    <?php echo $result_from_pages_in_acf_length; ?>
+                </span> )
+            </strong>
+            pages are using this Contact Form
+        </p>
     </div>
 
     <ul class="list-none pl-5">
