@@ -159,6 +159,7 @@ class Page_Template_Checker {
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'page_template_checker_page' );
 		$this->loader->add_action( 'admin_bar_menu', $plugin_admin, 'display_current_page_template', 999 );
 		$this->loader->add_action( 'wp_ajax_search_shortcode', $plugin_admin, 'handle_search_shortcode' );
+		$this->loader->add_action( 'wp_ajax_search_all', $plugin_admin, 'handle_search_all' );
 
 	}
 

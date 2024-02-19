@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#wpcontent {
+    /* @apply bg-gray-800 text-gray-400; */
+}
+
+body {
+    @apply bg-gray-800 text-gray-400;
+}

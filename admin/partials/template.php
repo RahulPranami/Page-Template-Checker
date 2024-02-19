@@ -1,9 +1,10 @@
-<div class="wrap m-0 -mt-[32px] -ml-[20px] -mb-[65px] px-5 py-10 min-h-screen h-max bg-gray-800 text-gray-400">
+<div class="wrap m-0 -mt-[32px] -ml-[20px] -mb-[65px] px-5 py-10 ">
 
     <?php
-    // $current_tab = isset($_GET['tab']) ? $_GET['tab'] : 'dashboard';
-    // $tabs = ['Shortcode Usage' => 'shortcode-search'];
-    $tabs = ['Page Templates' => 'page-templates', 'Contact Forms' => 'contact-forms', 'Shortcode Search' => 'shortcode-search'];
+        // $current_tab = isset($_GET['tab']) ? $_GET['tab'] : 'dashboard';
+        // $tabs = ['Shortcode Usage' => 'shortcode-search'];
+        $tabs = ['Page Templates' => 'page-templates', 'Contact Forms' => 'contact-forms', 'Shortcode Search' => 'shortcode-search', 'Universal Search' => 'universal-search'];
+    // $tabs = ['Page Templates' => 'page-templates', 'Contact Forms' => 'contact-forms', 'Shortcode Search' => 'shortcode-search'];
     // $tabs = ['Page Templates' => 'page-templates', 'Contact Forms' => 'contact-forms', 'Dashboard' => 'dashboard', 'Settings' => 'settings'];
 
     ?>
