@@ -81,23 +81,6 @@ class Page_Template_Checker_Admin
 		if ('tools_page_page-template-statistics' == $hook) {
 			// wp_enqueue_style('tailwindcss', plugin_dir_url(__FILE__) . 'css/output.css', array(), microtime(), 'all');
 			wp_enqueue_style('tailwindcss-min', plugin_dir_url(__FILE__) . 'css/output.min.css', array(), $this->version, 'all');
-			// // Load the required WordPress packages.
-
-			// // Automatically load imported dependencies and assets version.
-			// $asset_file = include plugin_dir_path(__FILE__) . 'partials/page-template-statistics/build/index.asset.php';
-
-			// // Enqueue CSS dependencies.
-			// foreach ($asset_file['dependencies'] as $style) {
-			// 	wp_enqueue_style($style);
-			// }
-
-			// // Load our style.css.
-			// wp_register_style(
-			// 	'page-template-statistics',
-			// 	plugins_url('partials/page-template-statistics/build/style-index.css', __FILE__),
-			// 	array(),
-			// 	$asset_file['version']
-			// );
 		}
 	}
 
@@ -125,8 +108,6 @@ class Page_Template_Checker_Admin
 
 		// Load only on ?page=page-template-statistics.
 		if ('tools_page_page-template-statistics' == $hook) {
-			// wp_enqueue_script( 'tailwindcss', 'https://cdn.tailwindcss.com' );
-			// wp_enqueue_script('tailwindcss', plugin_dir_url(__FILE__) . 'js/tailwindcss.min.js', array(), '3.4.1', false);
 			// wp_enqueue_script( 'htmx', 'https://unpkg.com/htmx.org@1.9.10' );
 			wp_enqueue_script('htmx', plugin_dir_url(__FILE__) . 'js/htmx.min.js', array(), '1.9.10', false);
 		}

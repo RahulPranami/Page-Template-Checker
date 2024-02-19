@@ -33,10 +33,9 @@ $result_from_pages_in_acf_length = count($result_from_pages_in_acf);
     </div>
 
     <ul class="list-none pl-5">
-        <?php foreach ($result_from_pages as $page): ?>
+        <?php foreach ($result_from_pages as $page) : ?>
             <li>
-                <a href="<?php echo get_permalink($page->ID, false); ?>"
-                    class="text-base text-blue-300 hover:text-blue-500">
+                <a href="<?php echo get_permalink($page->ID, false); ?>" class="text-base text-blue-300 hover:text-blue-500">
                     <?php echo $page->post_title; ?>
                 </a>
             </li>
@@ -61,10 +60,9 @@ $result_from_pages_in_acf_length = count($result_from_pages_in_acf);
     </div>
 
     <ul class="list-none pl-5">
-        <?php foreach ($result_from_pages_in_acf as $page): ?>
+        <?php foreach ($result_from_pages_in_acf as $page) : ?>
             <li>
-                <a href="<?php echo get_permalink($page->ID, false); ?>"
-                    class="text-base text-blue-300 hover:text-blue-500">
+                <a href="<?php echo get_permalink($page->ID, false); ?>" class="text-base text-blue-300 hover:text-blue-500">
                     <?php echo $page->post_title; ?>
                 </a>
             </li>
