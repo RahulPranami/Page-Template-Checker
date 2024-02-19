@@ -79,8 +79,8 @@ class Page_Template_Checker_Admin
 
 		// Load only on ?page=page-template-statistics.
 		if ('tools_page_page-template-statistics' == $hook) {
-			wp_enqueue_style('tailwindcss', plugin_dir_url(__FILE__) . 'css/output.css', array(), microtime(), 'all');
-			// wp_enqueue_style('tailwindcss-min', plugin_dir_url(__FILE__) . 'css/output.min.css', array(), $this->version, 'all');
+			// wp_enqueue_style('tailwindcss', plugin_dir_url(__FILE__) . 'css/output.css', array(), microtime(), 'all');
+			wp_enqueue_style('tailwindcss-min', plugin_dir_url(__FILE__) . 'css/output.min.css', array(), $this->version, 'all');
 			// // Load the required WordPress packages.
 
 			// // Automatically load imported dependencies and assets version.
