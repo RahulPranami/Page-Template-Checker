@@ -115,7 +115,7 @@ class Page_Template_Checker_Admin
 
 	public function page_template_checker_page()
 	{
-		add_submenu_page('tools.php', 'Page Templates Statistics', 'Page Templates Statistics', 'manage_options', 'page-template-statistics', [$this, 'template_page_statistics']);
+		add_submenu_page('tools.php', 'Page Templates Statistics', 'Page Templates Statistics', 'edit_pages', 'page-template-statistics', [$this, 'template_page_statistics']);
 	}
 
 	// Function that renders the page added above
