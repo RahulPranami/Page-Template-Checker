@@ -4,7 +4,8 @@
     <?php
     // $current_tab = isset($_GET['tab']) ? $_GET['tab'] : 'dashboard';
     // $tabs = ['Shortcode Usage' => 'shortcode-search'];
-    $tabs = ['Page Templates' => 'page-templates', 'Contact Forms' => 'contact-forms', 'Shortcode Search' => 'shortcode-search', 'Universal Search' => 'universal-search'];
+    $tabs = ['Contact Forms' => 'contact-forms', 'Shortcode Search' => 'shortcode-search', 'Universal Search' => 'universal-search'];
+    // $tabs = ['Page Templates' => 'page-templates', 'Contact Forms' => 'contact-forms', 'Shortcode Search' => 'shortcode-search', 'Universal Search' => 'universal-search'];
     // $tabs = ['Page Templates' => 'page-templates', 'Contact Forms' => 'contact-forms', 'Shortcode Search' => 'shortcode-search'];
     // $tabs = ['Page Templates' => 'page-templates', 'Contact Forms' => 'contact-forms', 'Dashboard' => 'dashboard', 'Settings' => 'settings'];
 
